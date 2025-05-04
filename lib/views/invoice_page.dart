@@ -64,7 +64,8 @@ class InvoicePage extends StatelessWidget {
               await Printing.layoutPdf(onLayout: (_) => pdfData);
             },
             child: Text("Generate PDF"),
-          )
+          ),
+
         ]),
       ),
     );
