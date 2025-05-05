@@ -83,6 +83,26 @@ class InvoiceScreen extends StatelessWidget {
                 ],
               ),
               SizedBox(height: Get.height * 0.02),
+              //bill title
+              //total
+              TextFormField(
+                keyboardType: TextInputType.text,
+                decoration: const InputDecoration(
+                  contentPadding: EdgeInsets.only(left: 5, right: 5),
+                  hintText: 'Bill Title',
+                  labelText: 'Bill Title',
+                  border: OutlineInputBorder(),
+                  prefixIcon: Padding(
+                    padding: EdgeInsets.only(left: 10,right: 10),
+                    child: Icon(Icons.edit, size: 20),
+                  ),
+                  prefixIconConstraints: BoxConstraints(
+                    minWidth: 30,
+                    minHeight: 30,
+                  ),
+                ),
+              ),
+              SizedBox(height: Get.height * 0.02),
               //Payment terms and Date
               Row(
                 children: [
@@ -309,24 +329,25 @@ class InvoiceScreen extends StatelessWidget {
 
                         )),
                         SizedBox(width: 10), // Minor spacing between field
-                        Expanded(child: TextFormField(
-                            initialValue: item.rate.toString(),
-                            onChanged: (val) => controller.updateItem(index, InvoiceItem(item: item.item, quantity: item.quantity, rate: double.parse(val))),
-                            enabled: false,
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.only(left: 5, right: 5),
-                              border: OutlineInputBorder(),
-                              prefixIcon: Padding(
-                                padding: EdgeInsets.only(left: 10,right: 5),
-                                child: Icon(Icons.money, size: 20),
-                              ),
-                              prefixIconConstraints: BoxConstraints(
-                                minWidth: 30,
-                                minHeight: 30,
-                              ),
-                            )
-
-                        )),
+                        Expanded(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 5, vertical: 11),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Obx(() => Row(
+                              children: [
+                                Icon(Icons.money, size: 20),
+                                SizedBox(width: 10),
+                                Text(
+                                  controller.items[index].amount.toStringAsFixed(2),
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                              ],
+                            )),
+                          ),
+                        ),
                       ],
                     ),
                   ]);
@@ -356,50 +377,40 @@ class InvoiceScreen extends StatelessWidget {
               // Divider with text "End TABLE ROW"
               Divider(color: Colors.black, thickness: 1.0,),
               SizedBox(height: Get.height * 0.02),
-              //sub total and discount
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      keyboardType: TextInputType.text,
-                      decoration: const InputDecoration(
-                        contentPadding: EdgeInsets.only(left: 5, right: 5),
-                        hintText: 'Subtotal',
-                        labelText: 'Subtotal',
-                        enabled: false,
-                        border: OutlineInputBorder(),
-                        prefixIcon: Padding(
-                          padding: EdgeInsets.only(left: 10,right: 10),
-                          child: Icon(Icons.money_sharp, size: 20),
-                        ),
-                        prefixIconConstraints: BoxConstraints(
-                          minWidth: 30,
-                          minHeight: 30,
-                        ),
-                      ),
+              //sub total
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 11),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Obx(() => Row(
+                  children: [
+                    Text(
+                      'SUB TOTAL = ${controller.subTotal}',
+                      style: TextStyle(fontSize: 16),
                     ),
+                  ],
+                )),
+              ),
+              SizedBox(height: Get.height * 0.02),
+              //discount
+              TextFormField(
+                keyboardType: TextInputType.text,
+                decoration: const InputDecoration(
+                  contentPadding: EdgeInsets.only(left: 10),
+                  hintText: 'Discount(Optional)',
+                  labelText: 'Discount(Optional)',
+                  border: OutlineInputBorder(),
+                  suffixIcon: Padding(
+                    padding: EdgeInsets.only(right: 10),
+                    child: Icon(Icons.percent, size: 20),
                   ),
-                  SizedBox(width: 10), // Minor spacing between fields
-                  Expanded(
-                    child: TextFormField(
-                      keyboardType: TextInputType.text,
-                      decoration: const InputDecoration(
-                        contentPadding: EdgeInsets.only(left: 10),
-                        hintText: 'Discount(Optional)',
-                        labelText: 'Discount(Optional)',
-                        border: OutlineInputBorder(),
-                        suffixIcon: Padding(
-                          padding: EdgeInsets.only(right: 10),
-                          child: Icon(Icons.percent, size: 20),
-                        ),
-                        prefixIconConstraints: BoxConstraints(
-                          minWidth: 30,
-                          minHeight: 30,
-                        ),
-                      ),
-                    ),
+                  prefixIconConstraints: BoxConstraints(
+                    minWidth: 30,
+                    minHeight: 30,
                   ),
-                ],
+                ),
               ),
               SizedBox(height: Get.height * 0.02),
               //tax and shipping
@@ -448,7 +459,22 @@ class InvoiceScreen extends StatelessWidget {
               ),
               SizedBox(height: Get.height * 0.02),
               //total
-              TextFormField(
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 11),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Obx(() => Row(
+                  children: [
+                    Text(
+                      'TOTAL = ${controller.totalAmount}',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ],
+                )),
+              ),
+              /*TextFormField(
                 keyboardType: TextInputType.text,
                 decoration: const InputDecoration(
                   contentPadding: EdgeInsets.only(left: 5, right: 5),
@@ -465,7 +491,7 @@ class InvoiceScreen extends StatelessWidget {
                     minHeight: 30,
                   ),
                 ),
-              ),
+              ),*/
               SizedBox(height: Get.height * 0.02),
               //amount paid and balance
               Row(

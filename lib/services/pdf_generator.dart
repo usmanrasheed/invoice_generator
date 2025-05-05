@@ -1,3 +1,4 @@
+/*
 import 'dart:typed_data';
 import 'package:get/get.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -23,7 +24,7 @@ Future<Uint8List> generateInvoicePDF(InvoiceController controller) async {
               pw.Text("Invoice No: ${controller.invoiceNo}"),
               pw.SizedBox(height: 8),
               pw.Text("Date: ${controller.date}"),
-              pw.Text("Payment Terms: ${controller.paymentTerms}"),
+              pw.Text("Payment Terms: ${controller.paymentTerm}"),
               pw.Text("Due Date: ${controller.dueDate}"),
               pw.Text("PO Number: ${controller.poNumber}"),
             ],
@@ -100,3 +101,4 @@ Future<Uint8List> generateInvoicePDF(InvoiceController controller) async {
 
   return pdf.save();
 }
+*/
