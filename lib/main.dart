@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:invoice/views/invoice_screen.dart';
-import 'views/invoice_page.dart';
 
 void main() {
   runApp(const MyApp());
