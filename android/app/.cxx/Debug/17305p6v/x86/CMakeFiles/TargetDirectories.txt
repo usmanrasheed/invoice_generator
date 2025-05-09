@@ -1,0 +1,2 @@
+D:/androidstudio/invoice_generator/android/app/.cxx/Debug/17305p6v/x86/CMakeFiles/edit_cache.dir
+D:/androidstudio/invoice_generator/android/app/.cxx/Debug/17305p6v/x86/CMakeFiles/rebuild_cache.dir

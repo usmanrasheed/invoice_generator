@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../models/invoice_item.dart';
+import '../res/utils/utils.dart';
 
 class InvoiceController extends GetxController {
   var logoBytes = Rxn<Uint8List>();
@@ -52,5 +53,10 @@ class InvoiceController extends GetxController {
   void setLogo(Uint8List bytes, String name) {
     logoBytes.value = bytes;
     logoName.value = name;
+  }
+
+  void invoiceGenerateFun(){
+    Utils.toastMessage(logoName.value);
+
   }
 }

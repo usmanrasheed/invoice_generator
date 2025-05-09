@@ -37,7 +37,6 @@ class InvoiceScreen extends StatelessWidget {
                         final picked = await picker.pickImage(source: ImageSource.gallery);
                         if (picked != null) {
                           controller.setLogo(await picked.readAsBytes(),picked.name);
-                          Utils.toastMessage('Logo is Uploaded${picked.name}');
                         }
                       },
                       borderRadius: BorderRadius.circular(12.0),
@@ -676,7 +675,7 @@ class InvoiceScreen extends StatelessWidget {
 
               ElevatedButton.icon(
                 onPressed: (){
-                  Utils.toastMessage('Invoice generated');
+                  controller.invoiceGenerateFun();
                 },
                 icon: Icon(
                   Icons.picture_as_pdf, // Replace with your desired icon
