@@ -35,8 +35,11 @@ class InvoiceController extends GetxController {
   final termsController = TextEditingController().obs;
 
   double get subTotal => items.fold(0.0, (sum, item) => sum + item.amount);
-  double get totalAmount => subTotal * (1 + tax.value / 100) - (subTotal * discount.value / 100) + shipping.value;
-  double get balanceDue => totalAmount - amountPaid.value;
+  //double get totalAmount => subTotal * (1 + tax.value / 100) - (subTotal * discount.value / 100) + shipping.value;
+  double get totalAmount =>
+      double.parse((subTotal * (1 + tax.value / 100) - (subTotal * discount.value / 100) + shipping.value).toStringAsFixed(2));
+  //double get balanceDue => totalAmount - amountPaid.value;
+  double get balanceDue => double.parse((totalAmount - amountPaid.value).toStringAsFixed(2));
 
   void addItem() {
     items.add(InvoiceItem());
@@ -56,7 +59,12 @@ class InvoiceController extends GetxController {
   }
 
   void invoiceGenerateFun(){
-    Utils.toastMessage(logoName.value);
+    Utils.toastMessage(
+        "${logoName.value}\n${invoiceNoController.value.text}\n${billTitleController.value.text}\n${dateController.value.text}\n${paymentTermController.value.text}"
+            "\n${dueDateController.value.text}\n${poNumberController.value.text}\n${billToController.value.text}\n${shipToController.value.text}"
+            "\n${items.map((item) => item.toString()).join('\n')}"
+            "\n${subTotal}\n${discount}\n${tax}\n${shipping}\n${totalAmount}\n${amountPaid}\n${balanceDue}\n${notesController.value.text}\n${termsController.value.text}");
+
 
   }
 }

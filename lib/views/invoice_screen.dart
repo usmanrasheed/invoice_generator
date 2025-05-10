@@ -26,6 +26,7 @@ class InvoiceScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
+              SizedBox(height: Get.height * 0.01),
               //Logo and invoice no
               Row(
                 children: [
