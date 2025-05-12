@@ -4,7 +4,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:invoice/controllers/invoice_controller.dart';
 import 'package:invoice/models/invoice_item.dart';
 import 'package:invoice/res/colors/app_color.dart';
-import 'package:invoice/res/utils/utils.dart';
+import 'package:invoice/services/pdf_generator.dart';
+import 'package:printing/printing.dart';
 
 class InvoiceScreen extends StatelessWidget {
   InvoiceScreen({super.key});
@@ -14,11 +15,11 @@ class InvoiceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.whiteColor,
+      backgroundColor: AppColor.backgroundColor,
       appBar: AppBar(
         automaticallyImplyLeading: false, // Removes the back button
         title: Text( 'INVOICE', style: TextStyle(color: AppColor.whiteColor),),
-        backgroundColor: AppColor.mainColor,
+        backgroundColor: AppColor.primaryColor,
       ),
 
       body: Padding(
@@ -44,7 +45,7 @@ class InvoiceScreen extends StatelessWidget {
                       child: Ink(
                         height: Get.height * 0.06,
                         decoration: BoxDecoration(
-                          color: AppColor.secondaryColor,
+                          color: AppColor.primaryDarkColor,
                           borderRadius: BorderRadius.circular(12.0),
                         ),
                         child: Center(
@@ -81,7 +82,7 @@ class InvoiceScreen extends StatelessWidget {
                               border: OutlineInputBorder(),
                               prefixIcon: Padding(
                                 padding: EdgeInsets.only(left: 10,right: 5),
-                                child: Icon(Icons.receipt, size: 20),
+                                child: Icon(Icons.receipt, size: 20,color: AppColor.primaryDarkColor,),
                               ),
                               prefixIconConstraints: BoxConstraints(
                                 minWidth: 30,
@@ -103,10 +104,11 @@ class InvoiceScreen extends StatelessWidget {
                     contentPadding: EdgeInsets.only(left: 5, right: 5),
                     hintText: 'Bill Title',
                     labelText: 'Bill Title',
-                    border: OutlineInputBorder(),
+                    border: OutlineInputBorder(
+                    ),
                     prefixIcon: Padding(
                       padding: EdgeInsets.only(left: 10,right: 10),
-                      child: Icon(Icons.edit, size: 20),
+                      child: Icon(Icons.edit, size: 20,color: AppColor.primaryDarkColor),
                     ),
                     prefixIconConstraints: BoxConstraints(
                       minWidth: 30,
@@ -146,7 +148,7 @@ class InvoiceScreen extends StatelessWidget {
                           border: OutlineInputBorder(),
                           prefixIcon: Padding(
                             padding: EdgeInsets.only(left: 10,right: 5),
-                            child: Icon(Icons.calendar_month, size: 20),
+                            child: Icon(Icons.calendar_month, size: 20,color: AppColor.primaryDarkColor),
                           ),
                           prefixIconConstraints: BoxConstraints(
                             minWidth: 30,
@@ -162,14 +164,17 @@ class InvoiceScreen extends StatelessWidget {
                       ()=> TextFormField(
                         controller: controller.paymentTermController.value,
                         keyboardType: TextInputType.text,
+                        style: TextStyle(color: AppColor.primaryDarkColor),
                         decoration: const InputDecoration(
                           contentPadding: EdgeInsets.only(left: 5, right: 5),
-                          hintText: 'terms(Optional)',
+                          hintText: 'Terms(Optional)',
                           labelText: 'Payment Term(Optional)',
+                          filled: true,
+                          fillColor: AppColor.optionalFieldFillColor,
                           border: OutlineInputBorder(),
                           prefixIcon: Padding(
-                            padding: EdgeInsets.only(left: 10),
-                            child: Icon(Icons.note_add, size: 20),
+                            padding: EdgeInsets.only(left: 10, right: 5),
+                            child: Icon(Icons.note_add, size: 20,color: AppColor.primaryDarkColor),
                           ),
                           prefixIconConstraints: BoxConstraints(
                             minWidth: 30,
@@ -208,11 +213,13 @@ class InvoiceScreen extends StatelessWidget {
                         decoration: const InputDecoration(
                           contentPadding: EdgeInsets.only(left: 5, right: 5),
                           hintText: '01-12-2001',
-                          labelText: 'Due Date',
+                          labelText: 'Due Date(Optional)',
+                          filled: true,
+                          fillColor: AppColor.optionalFieldFillColor,
                           border: OutlineInputBorder(),
                           prefixIcon: Padding(
                             padding: EdgeInsets.only(left: 10,right: 5),
-                            child: Icon(Icons.calendar_month, size: 20),
+                            child: Icon(Icons.calendar_month, size: 20,color: AppColor.primaryDarkColor),
                           ),
                           prefixIconConstraints: BoxConstraints(
                             minWidth: 30,
@@ -228,14 +235,17 @@ class InvoiceScreen extends StatelessWidget {
                       ()=> TextFormField(
                         controller: controller.poNumberController.value,
                         keyboardType: TextInputType.number,
+                        style: TextStyle(color: AppColor.primaryDarkColor),
                         decoration: const InputDecoration(
                           contentPadding: EdgeInsets.only(left: 5, right: 5),
                           hintText: '0000(Optional)',
                           labelText: 'PO Number(Optional)',
+                          filled: true,
+                          fillColor: AppColor.optionalFieldFillColor,
                           border: OutlineInputBorder(),
                           prefixIcon: Padding(
-                            padding: EdgeInsets.only(left: 10),
-                            child: Icon(Icons.numbers, size: 20),
+                            padding: EdgeInsets.only(left: 10,right: 5),
+                            child: Icon(Icons.numbers, size: 20,color: AppColor.primaryDarkColor),
                           ),
                           prefixIconConstraints: BoxConstraints(
                             minWidth: 30,
@@ -262,8 +272,8 @@ class InvoiceScreen extends StatelessWidget {
                           labelText: 'Bill to',
                           border: OutlineInputBorder(),
                           prefixIcon: Padding(
-                            padding: EdgeInsets.only(left: 10),
-                            child: Icon(Icons.person_outline, size: 20),
+                            padding: EdgeInsets.only(left: 10, right: 5),
+                            child: Icon(Icons.person_outline, size: 20,color: AppColor.primaryDarkColor),
                           ),
                           prefixIconConstraints: BoxConstraints(
                             minWidth: 30,
@@ -279,14 +289,17 @@ class InvoiceScreen extends StatelessWidget {
                       ()=> TextFormField(
                         controller: controller.shipToController.value,
                         keyboardType: TextInputType.text,
+                        style: TextStyle(color: AppColor.primaryDarkColor),
                         decoration: const InputDecoration(
                           contentPadding: EdgeInsets.only(left: 5, right: 5),
                           hintText: 'Ship to(Optional)',
                           labelText: 'Ship to(Optional)',
+                          filled: true,
+                          fillColor: AppColor.optionalFieldFillColor,
                           border: OutlineInputBorder(),
                           prefixIcon: Padding(
-                            padding: EdgeInsets.only(left: 10),
-                            child: Icon(Icons.location_on_outlined, size: 20),
+                            padding: EdgeInsets.only(left: 10, right: 5),
+                            child: Icon(Icons.location_on_outlined, size: 20,color: AppColor.primaryDarkColor),
                           ),
                           prefixIconConstraints: BoxConstraints(
                             minWidth: 30,
@@ -336,7 +349,7 @@ class InvoiceScreen extends StatelessWidget {
                         border: OutlineInputBorder(),
                         prefixIcon: Padding(
                           padding: EdgeInsets.only(left: 10,right: 5),
-                          child: Icon(Icons.description, size: 20),
+                          child: Icon(Icons.description, size: 20,color: AppColor.primaryDarkColor),
                         ),
                         prefixIconConstraints: BoxConstraints(
                           minWidth: 30,
@@ -349,8 +362,10 @@ class InvoiceScreen extends StatelessWidget {
                     //quantity and amount
                     Row(
                       children: [
-                        Expanded(child: TextFormField(
-                          initialValue: item.quantity.toString(),
+                        Expanded(
+                            flex: 2,
+                            child: TextFormField(
+                          //initialValue: item.quantity.toString(),
                           onChanged: (val) => controller.updateItem(index, InvoiceItem(item: item.item, quantity: int.parse(val), rate: item.rate)),
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
@@ -359,8 +374,8 @@ class InvoiceScreen extends StatelessWidget {
                               labelText: 'Qty',
                               border: OutlineInputBorder(),
                               prefixIcon: Padding(
-                                padding: EdgeInsets.only(left: 10,right: 5),
-                                child: Icon(Icons.numbers, size: 20),
+                                padding: EdgeInsets.only(left: 5,right: 2),
+                                child: Icon(Icons.numbers, size: 20,color: AppColor.primaryDarkColor),
                               ),
                               prefixIconConstraints: BoxConstraints(
                                 minWidth: 30,
@@ -369,8 +384,10 @@ class InvoiceScreen extends StatelessWidget {
                             )
                         )),
                         SizedBox(width: 10), // Minor spacing between field
-                        Expanded(child: TextFormField(
-                          initialValue: item.rate.toString(),
+                        Expanded(
+                            flex: 3,
+                            child: TextFormField(
+                          //initialValue: item.rate.toString(),
                           onChanged: (val) => controller.updateItem(index, InvoiceItem(item: item.item, quantity: item.quantity, rate: double.parse(val))),
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
@@ -379,8 +396,8 @@ class InvoiceScreen extends StatelessWidget {
                               labelText: 'Rates',
                               border: OutlineInputBorder(),
                               prefixIcon: Padding(
-                                padding: EdgeInsets.only(left: 10,right: 5),
-                                child: Icon(Icons.money, size: 20),
+                                padding: EdgeInsets.only(left: 5,right: 2),
+                                child: Icon(Icons.money, size: 20,color: AppColor.primaryDarkColor),
                               ),
                               prefixIconConstraints: BoxConstraints(
                                 minWidth: 30,
@@ -391,19 +408,22 @@ class InvoiceScreen extends StatelessWidget {
                         )),
                         SizedBox(width: 10), // Minor spacing between field
                         Expanded(
+                          flex: 4,
                           child: Container(
                             padding: EdgeInsets.symmetric(horizontal: 5, vertical: 11),
                             decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey),
+                              border: Border.all(color: AppColor.primaryDarkColor),
                               borderRadius: BorderRadius.circular(5),
+                              color: AppColor.disableColor
                             ),
                             child: Obx(() => Row(
                               children: [
-                                Icon(Icons.money, size: 20),
+                                Icon(Icons.money, size: 20,color: AppColor.whiteColor),
                                 SizedBox(width: 10),
                                 Text(
-                                  controller.items[index].amount.toStringAsFixed(2),
-                                  style: TextStyle(fontSize: 16),
+                                  controller.items[index].amount.toStringAsFixed(1),
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize:16,fontWeight: FontWeight.bold, color: AppColor.whiteColor),
                                 ),
                               ],
                             )),
@@ -427,7 +447,7 @@ class InvoiceScreen extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                 ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColor.secondaryColor,
+                  backgroundColor: AppColor.primaryDarkColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12), // Rounded corners
                   ),
@@ -447,6 +467,7 @@ class InvoiceScreen extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
+                        color: AppColor.primaryDarkColor
                       ),
                     ),
                   ),
@@ -455,13 +476,20 @@ class InvoiceScreen extends StatelessWidget {
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 5, vertical: 11),
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
+                        border: Border.all(color: AppColor.primaryDarkColor),
                         borderRadius: BorderRadius.circular(5),
+                        color: AppColor.disableColor
                       ),
-                      child: Obx(() => Text(
-                        controller.subTotal.toString(),
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 16),
+                      child: Obx(() => Row(
+                        children: [
+                          Icon(Icons.money, size: 20,color: AppColor.whiteColor),
+                          SizedBox(width: 10),
+                          Text(
+                            controller.subTotal.toString(),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,color: AppColor.whiteColor),
+                          ),
+                        ],
                       )),
                     ),
                   ),
@@ -476,13 +504,15 @@ class InvoiceScreen extends StatelessWidget {
                   controller.discount.value = parsed;
                 },
                 decoration: const InputDecoration(
-                  contentPadding: EdgeInsets.only(left: 10),
+                  contentPadding: EdgeInsets.only(left: 10, right: 5),
                   hintText: 'Discount(Optional)',
                   labelText: 'Discount(Optional)',
+                  filled: true,
+                  fillColor: AppColor.optionalFieldFillColor,
                   border: OutlineInputBorder(),
                   suffixIcon: Padding(
                     padding: EdgeInsets.only(right: 10),
-                    child: Icon(Icons.percent, size: 20),
+                    child: Icon(Icons.percent, size: 20, color: AppColor.primaryDarkColor,),
                   ),
                   prefixIconConstraints: BoxConstraints(
                     minWidth: 30,
@@ -505,10 +535,12 @@ class InvoiceScreen extends StatelessWidget {
                         contentPadding: EdgeInsets.only(left: 10),
                         hintText: 'Tax(Optional)',
                         labelText: 'Tax(Optional)',
+                        filled: true,
+                        fillColor: AppColor.optionalFieldFillColor,
                         border: OutlineInputBorder(),
                         suffixIcon: Padding(
                           padding: EdgeInsets.only(right: 10),
-                          child: Icon(Icons.percent, size: 20),
+                          child: Icon(Icons.percent, size: 20,color: AppColor.primaryDarkColor,),
                         ),
                         prefixIconConstraints: BoxConstraints(
                           minWidth: 30,
@@ -529,10 +561,12 @@ class InvoiceScreen extends StatelessWidget {
                         contentPadding: EdgeInsets.only(left: 5, right: 5),
                         hintText: 'Shipping(Optional)',
                         labelText: 'Shipping(Optional)',
+                        filled: true,
+                        fillColor: AppColor.optionalFieldFillColor,
                         border: OutlineInputBorder(),
                         prefixIcon: Padding(
-                          padding: EdgeInsets.only(left: 10),
-                          child: Icon(Icons.money_sharp, size: 20),
+                          padding: EdgeInsets.only(left: 10, right: 5),
+                          child: Icon(Icons.money_sharp, size: 20, color: AppColor.primaryDarkColor,),
                         ),
                         prefixIconConstraints: BoxConstraints(
                           minWidth: 30,
@@ -554,6 +588,7 @@ class InvoiceScreen extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
+                        color: AppColor.primaryDarkColor
                       ),
                     ),
                   ),
@@ -562,13 +597,20 @@ class InvoiceScreen extends StatelessWidget {
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 5, vertical: 11),
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
+                        border: Border.all(color: AppColor.primaryDarkColor),
                         borderRadius: BorderRadius.circular(5),
+                        color: AppColor.disableColor
                       ),
-                      child: Obx(() => Text(
-                        controller.totalAmount.toString(),
-                        textAlign: TextAlign.center ,
-                        style: TextStyle(fontSize: 16),
+                      child: Obx(() => Row(
+                        children: [
+                          Icon(Icons.money, size: 20,color: AppColor.whiteColor),
+                          SizedBox(width: 10),
+                          Text(
+                            controller.totalAmount.toString(),
+                            textAlign: TextAlign.center ,
+                            style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold, color: AppColor.whiteColor),
+                          ),
+                        ],
                       )),
                     ),
                   ),
@@ -588,8 +630,8 @@ class InvoiceScreen extends StatelessWidget {
                   labelText: 'Amount Paid',
                   border: OutlineInputBorder(),
                   prefixIcon: Padding(
-                    padding: EdgeInsets.only(left: 10),
-                    child: Icon(Icons.money, size: 20),
+                    padding: EdgeInsets.only(left: 10, right: 5),
+                    child: Icon(Icons.money, size: 20, color: AppColor.primaryDarkColor,),
                   ),
                   prefixIconConstraints: BoxConstraints(
                     minWidth: 30,
@@ -608,6 +650,7 @@ class InvoiceScreen extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
+                        color: AppColor.primaryDarkColor
                       ),
                     ),
                   ),
@@ -616,13 +659,20 @@ class InvoiceScreen extends StatelessWidget {
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 5, vertical: 11),
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
+                        border: Border.all(color: AppColor.primaryDarkColor),
                         borderRadius: BorderRadius.circular(5),
+                        color: AppColor.disableColor
                       ),
-                      child: Obx(() => Text(
-                        controller.balanceDue.toString(),
-                        textAlign: TextAlign.center ,
-                        style: TextStyle(fontSize: 16),
+                      child: Obx(() => Row(
+                        children: [
+                          Icon(Icons.money, size: 20,color: AppColor.whiteColor),
+                          SizedBox(width: 10,),
+                          Text(
+                            controller.balanceDue.toString(),
+                            textAlign: TextAlign.center ,
+                            style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold, color: AppColor.whiteColor),
+                          ),
+                        ],
                       )),
                     ),
                   ),
@@ -638,10 +688,12 @@ class InvoiceScreen extends StatelessWidget {
                     contentPadding: EdgeInsets.only(left: 5, right: 5),
                     hintText: 'Notes(Optional)',
                     labelText: 'Notes(Optional)',
+                    filled: true,
+                    fillColor: AppColor.optionalFieldFillColor,
                     border: OutlineInputBorder(),
                     prefixIcon: Padding(
                       padding: EdgeInsets.only(left: 10,right: 10),
-                      child: Icon(Icons.notes, size: 20),
+                      child: Icon(Icons.notes, size: 20,color: AppColor.primaryDarkColor,),
                     ),
                     prefixIconConstraints: BoxConstraints(
                       minWidth: 30,
@@ -660,10 +712,12 @@ class InvoiceScreen extends StatelessWidget {
                     contentPadding: EdgeInsets.only(left: 5, right: 5),
                     hintText: 'Terms(Optional)',
                     labelText: 'Terms(Optional)',
+                    filled: true,
+                    fillColor: AppColor.optionalFieldFillColor,
                     border: OutlineInputBorder(),
                     prefixIcon: Padding(
                       padding: EdgeInsets.only(left: 10,right: 10),
-                      child: Icon(Icons.notes, size: 20),
+                      child: Icon(Icons.notes, size: 20,color: AppColor.primaryDarkColor),
                     ),
                     prefixIconConstraints: BoxConstraints(
                       minWidth: 30,
@@ -675,9 +729,13 @@ class InvoiceScreen extends StatelessWidget {
               SizedBox(height: Get.height * 0.02),
 
               ElevatedButton.icon(
-                onPressed: (){
-                  controller.invoiceGenerateFun();
+                onPressed: () async {
+                  final pdfData = await generateInvoicePDF(controller);
+                  await Printing.layoutPdf(onLayout: (_) => pdfData);
                 },
+                /*onPressed: (){
+                  controller.invoiceGenerateFun();
+                },*/
                 icon: Icon(
                   Icons.picture_as_pdf, // Replace with your desired icon
                   color: Colors.white,
@@ -687,7 +745,7 @@ class InvoiceScreen extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                 ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColor.secondaryColor,
+                  backgroundColor: AppColor.primaryDarkColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12), // Rounded corners
                   ),

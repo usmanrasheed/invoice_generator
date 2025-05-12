@@ -3,7 +3,7 @@ class InvoiceItem {
   int quantity;
   double rate;
 
-  InvoiceItem({this.item = '', this.quantity = 1, this.rate = 0.0});
+  InvoiceItem({this.item = '', this.quantity = 0, this.rate = 0});
 
   double get amount => quantity * rate;
 

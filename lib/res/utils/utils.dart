@@ -11,7 +11,7 @@ class Utils {
     Fluttertoast.showToast(
         msg: message,
         toastLength: Toast.LENGTH_LONG,
-        backgroundColor: AppColor.mainColor,
+        backgroundColor: AppColor.primaryColor,
         textColor: AppColor.whiteColor,
         gravity: ToastGravity.BOTTOM
     );

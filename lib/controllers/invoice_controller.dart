@@ -59,12 +59,28 @@ class InvoiceController extends GetxController {
   }
 
   void invoiceGenerateFun(){
-    Utils.toastMessage(
-        "${logoName.value}\n${invoiceNoController.value.text}\n${billTitleController.value.text}\n${dateController.value.text}\n${paymentTermController.value.text}"
-            "\n${dueDateController.value.text}\n${poNumberController.value.text}\n${billToController.value.text}\n${shipToController.value.text}"
-            "\n${items.map((item) => item.toString()).join('\n')}"
-            "\n${subTotal}\n${discount}\n${tax}\n${shipping}\n${totalAmount}\n${amountPaid}\n${balanceDue}\n${notesController.value.text}\n${termsController.value.text}");
+    String toastMessage =
+        "logo title ${logoName.value}"
+        "\nin no ${invoiceNoController.value.text}"
+        "\ntitle ${billTitleController.value.text}"
+        "\ndate ${dateController.value.text}"
+        "${paymentTermController.value.text.isNotEmpty ? "\npay terms ${paymentTermController.value.text}" : ""}"
+        "${dueDateController.value.text.isNotEmpty ? "\ndue date ${dueDateController.value.text}" : ""}"
+        "${poNumberController.value.text.isNotEmpty ? "\npo no ${poNumberController.value.text}" : ""}"
+        "\nbill to ${billToController.value.text}"
+        "${shipToController.value.text.isNotEmpty ? "\nship to ${shipToController.value.text}" : ""}"
+        "\n${items.map((item) => item.toString()).join('\n')}"
+        "\nsub total $subTotal"
+        "${discount.value != 0.0 ? "\ndiscount ${discount.value}" : ""}"
+        "${tax.value != 0.0 ? "\ntax ${tax.value}" : ""}"
+        "${shipping.value != 0.0 ? "\nshipping ${shipping.value}" : ""}"
+        "\ntotal $totalAmount"
+        "\npaid ${amountPaid.value}"
+        "\nbalance due $balanceDue"
+        "${notesController.value.text.isNotEmpty ? "\nnotes ${notesController.value.text}" : ""}"
+        "${termsController.value.text.isNotEmpty ? "\nterms ${termsController.value.text}" : ""}";
 
+    Utils.toastMessage(toastMessage);
 
   }
 }
