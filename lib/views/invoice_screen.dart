@@ -730,8 +730,9 @@ class InvoiceScreen extends StatelessWidget {
 
               ElevatedButton.icon(
                 onPressed: () async {
-                  final pdfData = await generateInvoicePDF(controller);
-                  await Printing.layoutPdf(onLayout: (_) => pdfData);
+                  await Printing.layoutPdf(
+                    onLayout: (format) => generateInvoicePDF(controller, format),
+                  );
                 },
                 /*onPressed: (){
                   controller.invoiceGenerateFun();
