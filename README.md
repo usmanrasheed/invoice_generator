@@ -11,10 +11,6 @@ Quinvo is a simple yet powerful Flutter-based PDF Invoice Generator. It allows y
 - Local PDF preview (can be saved/shared/printed)
 - Responsive for landscape or portrait layout
 
-## 📸 Screenshots
-
-> *(Add screenshots here if available)*
-
 ## 🧰 Tech Stack
 
 - [Flutter](https://flutter.dev/)
