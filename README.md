@@ -8,8 +8,6 @@ Quinvo is a simple yet powerful Flutter-based PDF Invoice Generator. It allows y
 - Add company logo, billing/shipping details
 - Dynamically add invoice items (Item, Quantity, Rate, Amount)
 - Auto-calculates subtotal, discount, tax, shipping, total, and balance
-- Customize invoice number, PO number, terms, and dates
-- Supports optional fields (everything is customizable)
 - Local PDF preview (can be saved/shared/printed)
 - Responsive for landscape or portrait layout
 
