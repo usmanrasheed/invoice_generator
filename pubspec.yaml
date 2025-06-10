@@ -42,11 +42,14 @@ dependencies:
   file_picker: ^10.1.2
   path_provider: ^2.1.5
   image_picker: ^1.1.2
+  flutter_native_splash: ^2.4.4
 
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/images/logowithbg.png"
+  image_path: "assets/images/quinvo_bg.png"
+  adaptive_icon_background: "#E5F1FB"
+  adaptive_icon_foreground: "assets/images/quinvo_bg.png"
 
 dev_dependencies:
   flutter_test:
@@ -100,3 +103,13 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+flutter_native_splash:
+    color: "#E5F1FB"
+    image: assets/images/quinvo.png
+    ios: true
+    web: true
+
+    android_12:
+      image: assets/images/quinvo.png
+      color: "#a1bbd1"
+
