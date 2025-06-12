@@ -8,7 +8,7 @@ class AppColor{
   static const Color primaryDarkColor = Color(0xff263474);//173787//2a3655
   static const Color primaryColor = Color(0xff237ee2);//237ee2
   static const Color accentColor = Color(0xffE5F1FB);
-  static const Color backgroundColor = Color(0xFFE5F1FB);
+  static const Color backgroundColor = Color(0xFFfafdff);
 
   static const Color disableColor = Color(0xffE5F1FB);
   static const Color optionalFieldFillColor = Color(0xffe1f0ef);

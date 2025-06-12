@@ -18,7 +18,7 @@ class InvoiceScreen extends StatelessWidget {
       backgroundColor: AppColor.backgroundColor,
       appBar: AppBar(
         automaticallyImplyLeading: false, // Removes the back button
-        title: Text( 'INVOICE', style: TextStyle(color: AppColor.whiteColor),),
+        title: Text( 'hello'.tr, style: TextStyle(color: AppColor.whiteColor),),
         backgroundColor: AppColor.primaryColor,
       ),
 

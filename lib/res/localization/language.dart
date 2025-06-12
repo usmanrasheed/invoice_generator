@@ -1,17 +1,19 @@
 import 'package:get/get.dart';
 
-class Languages extends Translations{
+class AppTranslations extends Translations {
   @override
-  Map<String,Map<String,String>> get keys =>{
-    'en_US':{
-      'by_usman_rasheed' : 'By Usman Rasheed',
-      'choose_language': 'Select your Language',
-
+  Map<String, Map<String, String>> get keys => {
+    'en_US': {
+      'hello': 'Hello',
+      'language': 'Language',
+      'english': 'English',
+      'urdu': 'Urdu',
     },
     'ur_PK': {
-      'by_usman_rasheed' : 'By Usman Rasheed',
-      'choose_language': 'اپنی زبان منتخب کریں',
-
+      'hello': 'سلام',
+      'language': 'زبان',
+      'english': 'انگریزی',
+      'urdu': 'اردو',
     },
   };
 }
