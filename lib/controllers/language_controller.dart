@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -8,18 +9,25 @@ class LanguageController extends GetxController {
 
   @override
   void onInit() {
+    super.onInit();
     String? langCode = storage.read(localeKey);
     if (langCode != null) {
-      var locale = _getLocaleFromLanguage(langCode);
+      Locale locale = _getLocaleFromLanguage(langCode);
       Get.updateLocale(locale);
+      if (kDebugMode) {
+        print('Applied saved language: $langCode');
+      }
     }
-    super.onInit();
   }
 
   void changeLanguage(String langCode) {
-    var locale = _getLocaleFromLanguage(langCode);
+    Locale locale = _getLocaleFromLanguage(langCode);
     Get.updateLocale(locale);
     storage.write(localeKey, langCode);
+  }
+
+  bool isLanguageSelected() {
+    return storage.hasData(localeKey);
   }
 
   Locale _getLocaleFromLanguage(String code) {
@@ -32,9 +40,4 @@ class LanguageController extends GetxController {
         return const Locale('en', 'US');
     }
   }
-
-  bool isLanguageSelected() {
-    return storage.hasData(localeKey);
-  }
-
 }

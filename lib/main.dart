@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:invoice/res/localization/language.dart';
-import 'package:invoice/views/invoice_screen.dart';
+import 'package:invoice/res/localization/app_translations.dart';
+import 'package:invoice/res/route/app_pages.dart';
+import 'package:invoice/res/route/app_routes.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:invoice/views/language_screen.dart';
-
 import 'controllers/language_controller.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-// Wait for splash screen to load
-  FlutterNativeSplash.preserve(widgetsBinding: WidgetsFlutterBinding.ensureInitialized());
-  await GetStorage.init();
-  await Future.delayed(Duration(seconds: 2)); // simulate some async loading
-  FlutterNativeSplash.remove(); // remove splash screen
+  final bindings = WidgetsFlutterBinding.ensureInitialized();
+FlutterNativeSplash.preserve(widgetsBinding: bindings);
 
+  await GetStorage.init();
+
+  await Future.delayed(const Duration(seconds: 2));
+  FlutterNativeSplash.remove();
   runApp(MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
   MyApp({super.key});
@@ -26,9 +26,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    Widget initialScreen = langController.isLanguageSelected()
-        ? InvoiceScreen()
-        : LanguageScreen();
+    String initialRoute = langController.isLanguageSelected()
+        ? AppRoutes.invoiceScreen
+        : AppRoutes.languageScreen;
 
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
@@ -38,9 +38,14 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       translations: AppTranslations(),
-      locale: Get.deviceLocale, // temporary until GetStorage loads
-      fallbackLocale: const Locale('en', 'US'),
-      home: initialScreen,
+      // locale: Get.locale ?? Locale('en', 'US'),
+      // fallbackLocale: Locale('en', 'US'),
+      // home: initialScreen,
+      locale: Get.locale ?? Locale('en', 'US'),
+      fallbackLocale: Locale('en', 'US'),
+      initialRoute: initialRoute,
+      getPages: AppPages.routes,
+
     );
   }
 }

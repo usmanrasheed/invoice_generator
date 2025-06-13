@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:invoice/views/invoice_screen.dart';
-
 import '../controllers/language_controller.dart';
+import '../res/route/app_routes.dart';
 
 class LanguageScreen extends StatelessWidget {
   LanguageScreen({super.key});
@@ -11,7 +10,8 @@ class LanguageScreen extends StatelessWidget {
 
   void _selectLanguage(String langCode) {
     langController.changeLanguage(langCode);
-    Get.offAll(() => InvoiceScreen()); // Navigate to main screen and remove back stack
+
+    Get.offAllNamed(AppRoutes.invoiceScreen);
   }
 
   @override
