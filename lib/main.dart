@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String initialRoute = langController.isLanguageSelected()
-        ? AppRoutes.invoiceScreen
+        ? AppRoutes.mainScreen
         : AppRoutes.languageScreen;
 
     return GetMaterialApp(

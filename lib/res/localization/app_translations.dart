@@ -4,16 +4,16 @@ class AppTranslations extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
     'en_US': {
-      'hello': 'Hello',
-      'language': 'Language',
-      'english': 'English',
-      'urdu': 'Urdu',
+      'Languages' : 'Languages',
+      'Please select your language': 'Please select your language',
+      'Welcome to Quinvo':'Welcome to Quinvo',
+      'INVOICE':'INVOICE',
+      'QUOTE' : 'QUOTE',
+
     },
     'ur_PK': {
-      'hello': 'سلام',
-      'language': 'زبان',
-      'english': 'انگریزی',
-      'urdu': 'اردو',
+      'Languages' : 'زبانیں',
+      'Please select your language': 'براہ کرم اپنی زبان منتخب کریں۔',
     },
   };
 }
