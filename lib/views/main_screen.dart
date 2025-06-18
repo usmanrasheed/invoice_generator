@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
+import 'package:invoice/res/widgets/select_quote_template.dart';
 import '../res/colors/app_color.dart';
-import '../res/widgets/select_template_sheet.dart';
+import '../res/widgets/select_invoice_template.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-   /* return Scaffold(
-        backgroundColor: AppColor.backgroundColor,
-    );
-  }
-}*/
     return Scaffold(
       backgroundColor: AppColor.backgroundColor, // backgroundColor
       body: Center(
@@ -30,8 +26,8 @@ class MainScreen extends StatelessWidget {
                 const SizedBox(height: 24),
 
                 // Welcome Text
-                const Text(
-                  "Welcome to Quinvo",
+                Text(
+                  'Welcome to Quinvo'.tr,
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -44,7 +40,7 @@ class MainScreen extends StatelessWidget {
                 _buildMainButton(
                   context,
                   icon: Icons.receipt_long,
-                  label: "INVOICE",
+                  label: 'INVOICE'.tr,
                   onPressed: () {
                     showModalBottomSheet(
                       context: context,
@@ -52,7 +48,7 @@ class MainScreen extends StatelessWidget {
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
                       ),
-                      builder: (context) => const SelectTemplateSheet(),
+                      builder: (context) => const SelectInvoiceTemplate(),
                     );
                   },
                 ),
@@ -62,9 +58,16 @@ class MainScreen extends StatelessWidget {
                 _buildMainButton(
                   context,
                   icon: Icons.request_quote,
-                  label: "QUOTE",
+                  label: 'QUOTE'.tr,
                   onPressed: () {
-                    // TODO: Navigate to Quote Page
+                    showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+                      ),
+                      builder: (context) => const SelectQuoteTemplate(),
+                    );
                   },
                 ),
               ],

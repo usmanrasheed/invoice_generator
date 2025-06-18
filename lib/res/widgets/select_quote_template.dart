@@ -1,25 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:invoice/res/colors/app_color.dart';
+import 'package:invoice/res/route/app_routes.dart';
+import 'package:invoice/res/utils/utils.dart';
 
-class SelectTemplateSheet extends StatelessWidget {
-  const SelectTemplateSheet({super.key});
+class SelectQuoteTemplate extends StatelessWidget {
+  const SelectQuoteTemplate({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
       decoration: const BoxDecoration(
-        color: Color(0xFFfafdff),
+        color: AppColor.backgroundColor,
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text(
-            "Select Invoice Template",
+          Text(
+            'Select Quote Template'.tr,
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: Color(0xff263474),
+              color: AppColor.primaryDarkColor,
             ),
           ),
           const SizedBox(height: 24),
@@ -27,44 +31,48 @@ class SelectTemplateSheet extends StatelessWidget {
             children: [
               _templateOption(
                 context,
-                imagePath: 'assets/templates/template1.png',
+                imagePath: 'assets/images/template1.jpg',
                 onTap: () {
-                  Navigator.pop(context); // Close popup
-                  // TODO: Use Template 1
+                  Get.toNamed(AppRoutes.quoteScreen);
                 },
               ),
               const SizedBox(width: 16),
               _templateOption(
                 context,
-                imagePath: 'assets/templates/template2.png',
+                imagePath: 'assets/images/template1.jpg',
                 onTap: () {
-                  Navigator.pop(context); // Close popup
+                  Utils.toastMessage('Quote template 2');
+                  //Navigator.pop(context); // Close popup
                   // TODO: Use Template 2
                 },
               ),
             ],
           ),
+          const SizedBox(height: 16),
           Row(
             children: [
               _templateOption(
                 context,
-                imagePath: 'assets/templates/template1.png',
+                imagePath: 'assets/images/template1.jpg',
                 onTap: () {
-                  Navigator.pop(context); // Close popup
+                  Utils.toastMessage('Quote template 3');
+                  //Navigator.pop(context); // Close popup
                   // TODO: Use Template 1
                 },
               ),
               const SizedBox(width: 16),
               _templateOption(
                 context,
-                imagePath: 'assets/templates/template2.png',
+                imagePath: 'assets/images/template1.jpg',
                 onTap: () {
-                  Navigator.pop(context); // Close popup
+                  Utils.toastMessage('Quote template 4');
+                  //Navigator.pop(context); // Close popup
                   // TODO: Use Template 2
                 },
               ),
             ],
           ),
+          const SizedBox(height: 24),
         ],
       ),
     );
@@ -76,7 +84,7 @@ class SelectTemplateSheet extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-          height: 160,
+          height: 190,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             border: Border.all(color: Colors.grey.shade300),

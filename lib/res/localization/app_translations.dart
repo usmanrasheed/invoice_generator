@@ -9,6 +9,9 @@ class AppTranslations extends Translations {
       'Welcome to Quinvo':'Welcome to Quinvo',
       'INVOICE':'INVOICE',
       'QUOTE' : 'QUOTE',
+      'Select Invoice Template' : 'Select Invoice Template',
+      'Select Quote Template' : 'Select Quote Template',
+      'Quote' : 'Quote',
 
     },
     'ur_PK': {
